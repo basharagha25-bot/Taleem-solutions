@@ -1,58 +1,66 @@
 import { notFound } from "next/navigation"
 import { supabase } from "@/lib/supabase"
 import { Button } from "@/components/ui/button"
-import { MapPin, GraduationCap, ArrowLeft, Star } from "lucide-react"
+import { MapPin, GraduationCap, ArrowLeft, Star, Building2 } from "lucide-react"
 import Link from "next/link"
 
 // This is a server component
 export default async function CountryPage({ params }: { params: { country: string } }) {
-  const { country } = params
+  const { country: slug } = params
   
-  // In a real app, we would fetch this from Supabase
-  // const { data: countryData } = await supabase
-  //   .from('countries')
-  //   .select('*')
-  //   .eq('slug', country)
-  //   .single()
+  // Fetch Country Data
+  const { data: country, error } = await supabase
+    .from('countries')
+    .select('*')
+    .eq('slug', decodeURIComponent(slug))
+    .single()
 
-  // Mock data for demonstration
-  const countryName = decodeURIComponent(country).charAt(0).toUpperCase() + decodeURIComponent(country).slice(1)
-  
-  // Mock universities data
-  const universities = [
-    {
-      id: 1,
-      name: "جامعة ميونخ التقنية",
-      slug: "technical-university-munich",
-      city: "ميونخ",
-      ranking: 1,
-      image: "/placeholder-uni.jpg",
-      programs_count: 150
-    },
-    {
-      id: 2,
-      name: "جامعة برلين الحرة",
-      slug: "free-university-berlin",
-      city: "برلين",
-      ranking: 4,
-      image: "/placeholder-uni-2.jpg",
-      programs_count: 120
-    },
-    // Add more mock data as needed
-  ]
+  if (error || !country) {
+    // Try to find by name if slug fails (fallback)
+    const { data: countryByName } = await supabase
+      .from('countries')
+      .select('*')
+      .ilike('slug', `%${decodeURIComponent(slug)}%`)
+      .single()
+      
+    if (!countryByName) {
+      return (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-2">الدولة غير موجودة</h1>
+            <p className="text-gray-500 mb-4">عذراً، لم نتمكن من العثور على الدولة المطلوبة.</p>
+            <Link href="/countries">
+              <Button>تصفح كل الدول</Button>
+            </Link>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  // Fetch Universities for this country
+  const { data: universities } = await supabase
+    .from('universities')
+    .select('*, programs(count)')
+    .eq('country_id', country?.id)
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Country Hero */}
       <div className="relative h-[40vh] bg-gray-900 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-        {/* Background Image Placeholder */}
-        <div className="absolute inset-0 bg-blue-900/50" /> 
+        {/* Background Image */}
+        {country?.image_url && (
+          <div 
+            className="absolute inset-0 bg-cover bg-center opacity-60"
+            style={{ backgroundImage: `url(${country.image_url})` }}
+          />
+        )}
         
         <div className="relative z-20 text-center text-white px-4">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">الدراسة في {countryName}</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">الدراسة في {country?.name_ar}</h1>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-            اكتشف أفضل الجامعات والبرامج الدراسية في {countryName} وابدأ رحلتك الأكاديمية اليوم.
+            {country?.description || `اكتشف أفضل الجامعات والبرامج الدراسية في ${country?.name_ar} وابدأ رحلتك الأكاديمية اليوم.`}
           </p>
         </div>
       </div>
@@ -66,10 +74,9 @@ export default async function CountryPage({ params }: { params: { country: strin
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium mb-2 block">المدينة</label>
-                  <select className="w-full p-2 border rounded-md text-sm">
+                  <select className="w-full p-2 border rounded-md text-sm bg-white">
                     <option>كل المدن</option>
-                    <option>ميونخ</option>
-                    <option>برلين</option>
+                    {/* We could fetch cities dynamically here */}
                   </select>
                 </div>
                 <div>
@@ -92,9 +99,9 @@ export default async function CountryPage({ params }: { params: { country: strin
           {/* Main Content */}
           <div className="flex-1">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">الجامعات المتاحة ({universities.length})</h2>
+              <h2 className="text-2xl font-bold">الجامعات المتاحة ({universities?.length || 0})</h2>
               <div className="flex gap-2">
-                <select className="p-2 border rounded-md text-sm">
+                <select className="p-2 border rounded-md text-sm bg-white">
                   <option>الأعلى تصنيفاً</option>
                   <option>الأقل تكلفة</option>
                 </select>
@@ -102,41 +109,45 @@ export default async function CountryPage({ params }: { params: { country: strin
             </div>
 
             <div className="grid gap-6">
-              {universities.map((uni) => (
-                <Link href={`/university/${uni.slug}`} key={uni.id} className="group bg-white rounded-xl shadow-sm border overflow-hidden hover:shadow-md transition-all flex flex-col md:flex-row">
-                  <div className="w-full md:w-64 h-48 md:h-auto bg-gray-200 relative">
-                    {/* Image placeholder */}
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                      <GraduationCap className="h-12 w-12" />
-                    </div>
+              {universities?.map((uni) => (
+                <div key={uni.id} className="bg-white border rounded-xl p-6 hover:shadow-md transition-all flex flex-col md:flex-row gap-6">
+                  <div className="w-full md:w-48 h-32 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                    <Building2 className="h-10 w-10 text-gray-400" />
                   </div>
-                  <div className="flex-1 p-6 flex flex-col justify-between">
-                    <div>
-                      <div className="flex justify-between items-start mb-2">
-                        <h3 className="text-xl font-bold group-hover:text-primary transition-colors">{uni.name}</h3>
-                        <div className="flex items-center gap-1 bg-yellow-50 text-yellow-700 px-2 py-1 rounded text-xs font-bold">
-                          <Star className="h-3 w-3 fill-yellow-500 text-yellow-500" />
-                          <span>تصنيف: {uni.ranking}</span>
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-xl font-bold text-primary mb-2">
+                          <Link href={`/university/${uni.slug}`} className="hover:underline">
+                            {uni.name_ar}
+                          </Link>
+                        </h3>
+                        <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                          <span className="flex items-center gap-1"><MapPin className="h-4 w-4" /> {uni.city_ar}</span>
+                          <span className="flex items-center gap-1"><Star className="h-4 w-4 text-yellow-500" /> التصنيف: {uni.ranking}</span>
                         </div>
+                        <p className="text-gray-600 text-sm line-clamp-2 mb-4">
+                          {uni.description}
+                        </p>
                       </div>
-                      <div className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
-                        <MapPin className="h-4 w-4" />
-                        <span>{uni.city}، {countryName}</span>
-                      </div>
-                      <p className="text-gray-600 text-sm line-clamp-2">
-                        جامعة رائدة تقدم برامج متميزة في الهندسة والعلوم والتكنولوجيا. بيئة تعليمية حديثة ومجتمع طلابي متنوع.
-                      </p>
                     </div>
-                    
-                    <div className="flex items-center justify-between mt-6 pt-4 border-t">
-                      <span className="text-sm text-muted-foreground">{uni.programs_count} برنامج دراسي</span>
-                      <Button variant="ghost" size="sm" className="text-primary hover:text-primary/90 hover:bg-blue-50">
-                        عرض التفاصيل <ArrowLeft className="mr-2 h-4 w-4" />
-                      </Button>
+                    <div className="flex items-center justify-between mt-auto pt-4 border-t">
+                      <span className="text-sm text-muted-foreground">
+                        {uni.programs?.[0]?.count || 0} برنامج دراسي متاح
+                      </span>
+                      <Link href={`/university/${uni.slug}`}>
+                        <Button variant="outline" size="sm">عرض التفاصيل</Button>
+                      </Link>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
+
+              {(!universities || universities.length === 0) && (
+                <div className="text-center py-12 bg-white rounded-xl border">
+                  <p className="text-gray-500">لا توجد جامعات متاحة حالياً في هذه الدولة.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
