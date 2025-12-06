@@ -1,0 +1,22 @@
+[
+  {
+    "name_ar": "جامعة هارفارد",
+    "name_en": "Harvard University",
+    "slug": "harvard-university",
+    "description": "Harvard University is a private Ivy League research university in Cambridge, Massachusetts.",
+    "logo_url": "https://example.com/harvard-logo.png",
+    "cover_url": "https://example.com/harvard-cover.jpg",
+    "ranking": 1,
+    "country_id": "UUID_OF_USA_FROM_COUNTRIES_TABLE"
+  },
+  {
+    "name_ar": "جامعة أكسفورد",
+    "name_en": "University of Oxford",
+    "slug": "university-of-oxford",
+    "description": "The University of Oxford is a collegiate research university in Oxford, England.",
+    "logo_url": "https://example.com/oxford-logo.png",
+    "cover_url": "https://example.com/oxford-cover.jpg",
+    "ranking": 2,
+    "country_id": "UUID_OF_UK_FROM_COUNTRIES_TABLE"
+  }
+]
