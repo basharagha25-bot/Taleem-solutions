@@ -1,0 +1,102 @@
+[
+  {
+    "name_ar": "جامعة هارفارد",
+    "name_en": "Harvard University",
+    "slug": "harvard-university",
+    "description": "Harvard University is a private Ivy League research university in Cambridge, Massachusetts.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Harvard_shield_wreath.svg/1200px-Harvard_shield_wreath.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1559135197-8a45ea74d367?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 1,
+    "country_id": "USA_UUID"
+  },
+  {
+    "name_ar": "جامعة أكسفورد",
+    "name_en": "University of Oxford",
+    "slug": "university-of-oxford",
+    "description": "The University of Oxford is a collegiate research university in Oxford, England.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/University_of_Oxford.svg/1200px-University_of_Oxford.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1580537659466-0a9b9e43759d?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 2,
+    "country_id": "UK_UUID"
+  },
+  {
+    "name_ar": "جامعة كامبريدج",
+    "name_en": "University of Cambridge",
+    "slug": "university-of-cambridge",
+    "description": "The University of Cambridge is a collegiate research university in Cambridge, United Kingdom.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e7/University_of_Cambridge_coat_of_arms.svg/1200px-University_of_Cambridge_coat_of_arms.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 3,
+    "country_id": "UK_UUID"
+  },
+  {
+    "name_ar": "معهد ماساتشوستس للتكنولوجيا",
+    "name_en": "MIT",
+    "slug": "mit",
+    "description": "Massachusetts Institute of Technology is a private land-grant research university in Cambridge, Massachusetts.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/MIT_Seal.svg/1200px-MIT_Seal.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 4,
+    "country_id": "USA_UUID"
+  },
+  {
+    "name_ar": "جامعة ستانفورد",
+    "name_en": "Stanford University",
+    "slug": "stanford-university",
+    "description": "Stanford University is a private research university in Stanford, California.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Stanford_University_seal_2003.svg/1200px-Stanford_University_seal_2003.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 5,
+    "country_id": "USA_UUID"
+  },
+  {
+    "name_ar": "جامعة ميونخ التقنية",
+    "name_en": "Technical University of Munich",
+    "slug": "tum",
+    "description": "The Technical University of Munich is a public research university in Munich, Germany.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Technische_Universit%C3%A4t_M%C3%BCnchen_Logo.svg/1200px-Technische_Universit%C3%A4t_M%C3%BCnchen_Logo.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 50,
+    "country_id": "GERMANY_UUID"
+  },
+  {
+    "name_ar": "جامعة هايدلبرغ",
+    "name_en": "Heidelberg University",
+    "slug": "heidelberg-university",
+    "description": "Heidelberg University is a public research university in Heidelberg, Baden-Württemberg, Germany.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Heidelberg_Universit%C3%A4t_Siegel.svg/1200px-Heidelberg_Universit%C3%A4t_Siegel.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 60,
+    "country_id": "GERMANY_UUID"
+  },
+  {
+    "name_ar": "جامعة بوخارست",
+    "name_en": "University of Bucharest",
+    "slug": "university-of-bucharest",
+    "description": "The University of Bucharest is a public university founded in 1864 in Bucharest, Romania.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/University_of_Bucharest_logo.svg/1200px-University_of_Bucharest_logo.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 800,
+    "country_id": "ROMANIA_UUID"
+  },
+  {
+    "name_ar": "جامعة كلوج نابوكا",
+    "name_en": "Babeș-Bolyai University",
+    "slug": "babes-bolyai-university",
+    "description": "Babeș-Bolyai University is a public university in Cluj-Napoca, Romania.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7d/Babes-Bolyai_University_logo.svg/1200px-Babes-Bolyai_University_logo.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1565034946487-077786996e27?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 850,
+    "country_id": "ROMANIA_UUID"
+  },
+  {
+    "name_ar": "جامعة اسطنبول",
+    "name_en": "Istanbul University",
+    "slug": "istanbul-university",
+    "description": "Istanbul University is a prominent Turkish university located in Istanbul.",
+    "logo_url": "https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Istanbul_University_logo.svg/1200px-Istanbul_University_logo.svg.png",
+    "cover_url": "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&q=80&w=1000",
+    "ranking": 600,
+    "country_id": "TURKEY_UUID"
+  }
+]
